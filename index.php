@@ -12,6 +12,8 @@ require_once APP_PATH . 'controllers/Products_controller.php';
 
 $oProducts = new Products_controller();
 
+echo $oProducts->countries_to_string() . '<br>';
+
 $countries = $oProducts->countries();
 
 if ($countries) {

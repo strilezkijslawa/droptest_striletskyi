@@ -11,9 +11,6 @@ class Product_model extends Base_model
      */
     public function getProducts( $where = [] )
     {
-        if (!isset($where['active'])) {
-            $where['active'] = 1;
-        }
         $products = $this->db->get($this->table, $where);
         if ($products) {
             return $products->asObject();

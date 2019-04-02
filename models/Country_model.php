@@ -11,9 +11,6 @@ class Country_model extends Base_model
      */
     public function getCountries( $where = [] )
     {
-        if (!isset($where['active'])) {
-            $where['active'] = 1;
-        }
         $countries = $this->db->get($this->table, $where);
         if ($countries) {
             return $countries->asObject();

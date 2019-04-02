@@ -19,13 +19,32 @@ class Products_controller extends Base_controller
      */
     public function countries( $iso = false )
     {
-        $where = [];
+        $where = ['active'=>1];
         $oCountry = new Country_model();
         if ($iso) {
             $where = ['iso2'=>$iso];
         }
 
         return $oCountry->getCountries($where);
+    }
+
+    /**
+     * Return all countries as string
+     * @return string
+     */
+    public function countries_to_string()
+    {
+        $output = '';
+        $oCountry = new Country_model();
+        $countries = $oCountry->getCountries();
+        if ($countries) {
+            foreach ($countries as $country) {
+                $io = $country->active ? "включено" : "виключено";
+                $output .= "<div>$country->name, $country->iso2, " . $io . "</div>";
+            }
+        }
+
+        return $output;
     }
 
     /**
@@ -40,7 +59,7 @@ class Products_controller extends Base_controller
             return $oProduct->getProductsByCountryId($country_id);
         }
 
-        return $oProduct->getProducts();
+        return $oProduct->getProducts(['active'=>1]);
     }
 
     /**
